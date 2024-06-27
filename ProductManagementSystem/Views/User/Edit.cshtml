@@ -1,0 +1,83 @@
+﻿@model UserEditViewModel
+
+@{
+    ViewData["Title"] = "Редактирование пользователя";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Редактировать пользователя</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" asp-controller="User" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="FirstName">Имя:</label>
+                            <input class="form-control" type="text" id="FirstName" name="FirstName" value="@Model.FirstName" />
+                            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName">Фамилия:</label>
+                            <input class="form-control" type="text" id="LastName" name="LastName" value="@Model.LastName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Эл. адрес:</label>
+                            <input class="form-control" type="email" id="Email" name="Email" value="@Model.Email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Address">Адрес:</label>
+                            <input class="form-control" type="text" id="Address" name="Address" value="@Model.Address" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Phone">Телефон:</label>
+                            <input class="form-control" type="text" id="Phone" name="Phone" value="@Model.Phone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Login">Логин:</label>
+                            <input class="form-control" type="text" id="Login" name="Login" value="@Model.Login" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Пароль:</label>
+                            <input class="form-control" type="password" id="Password" name="Password" value="@Model.Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Загрузить изображение:</label>
+                            <input type="file" class="form-control-file" id="image" name="Image" asp-for="Image" onchange="previewImage(event)">
+                            <input type="hidden" id="ImageBytes" name="ImageBytes" asp-for="ImageBytes" />
+                        </div>
+                        <div class="form-group" id="imageContainer">
+                            @if (Model.ImageBytes != null)
+                            {
+                                <img id="imagePreview" class="img-fluid" src="data:image;base64,@Convert.ToBase64String(Model.ImageBytes)" alt="Image Preview" style="display: block;">
+                            }
+                            else
+                            {
+                                <span id="noImageText" style="display: none;">Изображение недоступно</span>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                            <a href="@Url.Action("Index", "User")" class="btn btn-secondary">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = reader.result;
+            imagePreview.style.display = 'block';
+            var noImageText = document.getElementById('noImageText');
+            noImageText.style.display = 'none';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

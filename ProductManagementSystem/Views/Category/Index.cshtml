@@ -1,0 +1,139 @@
+﻿@model CategoryViewModel
+@{
+}
+<div style="padding:5px">
+    <button id="myModelBtn" class="btn btn-sm btn-success">Добавить новую категорию</button>
+</div>
+@{
+    int counter = 0;
+    if (Model.ProductCategories.Any())
+    {
+        <div class="table-responsive">
+            <table id="myTable" class="table table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="display:none; width: 0%;">ID</th>
+                        <th style="width: 5%;">№</th>
+                        <th style="width: 20%;">Название</th>
+                        <th style="width: 55%;">Описание</th>
+                        <th style="width: 30%;">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ProductCategory category in Model.ProductCategories)
+                    {
+                        counter++;
+                        <tr>
+                            <td style="display:none">@category.Id</td>
+                            <td>@counter</td>
+                            <td>@category.Name</td>
+                            <td>@category.Description</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-success" onclick="btnEditClick(@counter)">Изменить</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="btnDeleteClick(@counter)">Удалить</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+
+<div id="myModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <h3 class="modal-title" id="myModalLabel" style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:18px;top:10px">Добавить категорию</h3>
+            </div>
+            <div style="padding: 10px">
+                <form class="form-group" method="post" asp-controller="Category" asp-action="Add" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="ProductCategory.Id" value="" /><br />
+                    <input type="text" placeholder="Название" class="form-control" asp-for="ProductCategory.Name" value="" /><br />
+                    <input type="text" placeholder="Описание" class="form-control" asp-for="ProductCategory.Description" value="" /><br />
+                    <div class="modal-footer">
+                        <input type="submit" value="Добавить" class="btn btn-sm btn-success" style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:16px" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myEditModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <h3 class="modal-title" id="myModalLabel" style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:18px;top:10px">Изменить категорию</h3>
+            </div>
+            <div style="padding: 10px">
+                <form class="form-group" method="post" asp-controller="Category" asp-action="Edit" enctype="multipart/form-data">
+                    <input id="CategoryId" type="hidden" asp-for="ProductCategory.Id" value="" /><br />
+                    <input id="CategoryName" type="text" placeholder="Название" class="form-control" asp-for="ProductCategory.Name" value="" /><br />
+                    <input id="CategoryDescription" type="text" placeholder="Описание" class="form-control" asp-for="ProductCategory.Description" value="" /><br />
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-sm btn-success" value="Изменить" style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:16px" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myDeleteModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <h3 class="modal-title" id="myModalLabel" style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:18px;top:10px">Подтвердите удаление</h3>
+            </div>
+            <div style="padding: 10px">
+                <form class="form-group" method="post" asp-controller="Category" asp-action="Delete" enctype="multipart/form-data">
+                    <input id="myDeleteModalCategoryId" type="hidden" asp-for="ProductCategory.Id" /><br />
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-sm btn-success" value="Удалить" style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:16px" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var editModal = document.getElementById("myEditModal");
+    var myDeleteModal = document.getElementById("myDeleteModal");
+    var btn = document.getElementById("myModelBtn");
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    function btnEditClick(idRow) {
+        var currentRow = document.getElementById("myTable").rows[idRow];
+        editModal.style.display = "block";
+        document.getElementById("CategoryId").value = currentRow.cells[0].innerHTML;
+        document.getElementById("CategoryName").value = currentRow.cells[2].innerHTML;
+        document.getElementById("CategoryDescription").value = currentRow.cells[3].innerHTML;
+    }
+
+    function btnDeleteClick(idRow) {
+        var currentRow = document.getElementById("myTable").rows[idRow];
+        myDeleteModal.style.display = "block";
+        document.getElementById("myDeleteModalCategoryId").value = currentRow.cells[0].innerHTML;
+    }
+
+
+
+
+
+    window.onclick = function (event) {
+        if (event.target == modal || event.target == editModal || event.target == myDeleteModal) {
+            modal.style.display = "none";
+            editModal.style.display = "none";
+            myDeleteModal.style.display = "none";
+        }
+    }
+</script>

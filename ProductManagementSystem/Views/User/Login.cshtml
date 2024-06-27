@@ -1,0 +1,69 @@
+﻿@model LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Администратор | Вход</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
+</head>
+<body class="login-page" style="background: linear-gradient(#92c51c, #9ce3ef, #3dbc44);">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Администратор</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Войдите, чтобы начать сеанс</p>
+
+                <form method="post" asp-controller="Admin" asp-action="Admin" enctype="multipart/form-data">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" placeholder="Логин" asp-for="Login" required>
+                        <span class="fa fa-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" placeholder="Пароль" asp-for="Password" required>
+                        <span class="fa fa-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox"> Запомнить меня
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <!-- /.social-auth-links -->
+                <p class="mb-0">
+                    <a asp-controller="User" asp-action="Registration" class="text-center">Зарегистрировать нового пользователя</a>
+                </p>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- iCheck -->
+    <script src="../../plugins/iCheck/icheck.min.js"></script>
+</body>
+</html>

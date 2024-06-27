@@ -1,0 +1,55 @@
+﻿@model ProductViewViewModel
+
+@{
+    ViewData["Title"] = "View Product";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Детали продукта</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="name">Название:</label>
+                        <input class="form-control" type="text" id="name" value="@Model.Name" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Описание:</label>
+                        <textarea class="form-control" id="description" readonly>@Model.Description</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Цена:</label>
+                        <input class="form-control" type="text" id="price" value="@Model.Price" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryId">Категория:</label>
+                        <input class="form-control" type="text" id="categoryId" value="@Model.ProductCategory.Name" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="unitId">Единица измерения:</label>
+                        <input class="form-control" type="text" id="unitId" value="@Model.UnitMeasure.Name" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Изображение:</label>
+                    </div>
+                    <div class="form-group">
+                        @if (Model.Image != null && Model.Image.Length > 0)
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(Model.Image)" alt="Изображение продукта" style="width: 300px; height: auto;" />
+                        }
+                        else
+                        {
+                            <span>Изображение недоступно</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <p><a asp-action="Index" asp-controller="Product">Вернуться к списку продуктов</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

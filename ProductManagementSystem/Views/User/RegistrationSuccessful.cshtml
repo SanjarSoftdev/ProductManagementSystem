@@ -1,0 +1,46 @@
+﻿@{
+}
+@if (Setting.CurrentUser == null)
+{
+    Layout = null;
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Регистрация пользователя</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
+    </head>
+
+}
+<body class="login-page" style="background: linear-gradient(#92c51c, #9ce3ef, #3dbc44);">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Регистрация</b> пользователя</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <div class="container">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h1>Регистрация успешна</h1>
+                    <p>Вы успешно зарегистрировали аккаунт.</p>
+                    <p><a asp-controller="User" asp-action="Login">Нажмите здесь, чтобы войти</a></p>
+                </div>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- iCheck -->
+    <script src="../../plugins/iCheck/icheck.min.js"></script>
+</body>
